@@ -33,24 +33,17 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+// src/routes/auth.ts
 const express_1 = require("express");
-const ctrl = __importStar(require("../controllers/todosController"));
-// 1. IMPORT MIDDLEWARE XÁC THỰC CỦA BẠN
-// (Tên file và tên hàm có thể khác, ví dụ: '../middleware/authMiddleware' hay '../utils/auth')
-const auth_1 = require("../middleware/auth");
+const ctrl = __importStar(require("../controllers/authController"));
 const router = (0, express_1.Router)();
-// 2. SỬ DỤNG MIDDLEWARE
-// Bất kỳ request nào đến /api/todos (GET, POST, PUT, DELETE)
-// sẽ phải đi qua 'authMiddleware' NÀY TRƯỚC TIÊN.
-// Nếu token hợp lệ, nó sẽ tạo ra 'req.user'.
-router.use(auth_1.authMiddleware);
-// 3. CÁC ROUTE CỦA BẠN GIỮ NGUYÊN
-// Các hàm controller này bây giờ sẽ luôn có 'req.user'
-router.get("/", ctrl.listTodos);
-router.get("/:id", ctrl.getTodo);
-router.post("/", ctrl.createTodo);
-router.put("/:id", ctrl.updateTodo);
-router.delete("/:id", ctrl.deleteTodo);
-router.delete("/clear/completed", ctrl.deleteCompletedTodos);
+console.log("Auth routes loaded");
+// Route cũ của bạn
+router.post("/signup", ctrl.signup);
+router.post("/login", ctrl.login);
+// --- 3 ROUTE RESET MẬT KHẨU ---
+router.post("/forgot-password", ctrl.forgotPassword); // Gửi mã 6 số
+router.post("/verify-code", ctrl.verifyCode); // Kiểm tra mã 6 số
+router.post("/reset-password", ctrl.resetPassword); // Gửi token reset + pass mới
 exports.default = router;
-//# sourceMappingURL=todos.js.map
+//# sourceMappingURL=auth.js.map

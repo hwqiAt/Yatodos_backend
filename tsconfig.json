@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-
     "outDir": "dist",
     "rootDir": "src",
     "module": "CommonJS",
@@ -11,11 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "sourceMap": true,
-
-    // These two help ts-node work smoother with ESM imports
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "sourceMap": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

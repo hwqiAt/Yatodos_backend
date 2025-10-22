@@ -1,9 +1,15 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config();
-export async function connectDB() {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.connectDB = connectDB;
+const mongoose_1 = __importDefault(require("mongoose"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+async function connectDB() {
     const uri = process.env.MONGO_URI || "mongodb://localhost:27017/todos";
-    await mongoose.connect(uri);
+    await mongoose_1.default.connect(uri);
     console.log("MongoDB connected");
 }
 //# sourceMappingURL=db.js.map
