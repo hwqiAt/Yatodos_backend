@@ -4,34 +4,46 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth";
 import todoRoutes from "./routes/todos";
 
+// dotenv.config();
+
+// const app = express();
+
+// app.use(express.json());
+
+// const allowedOrigins = [
+//   "https://yatodos-web.vercel.app/",
+//   "http://localhost:3000",
+//   "https://yatodo.netlify.app/",
+// ];
+// type CorsCallback = (err: Error | null, allow?: boolean) => void;
+
+// const corsOptions: CorsOptions = {
+//   origin: function (
+//     origin: string | undefined, // Thêm kiểu cho origin
+//     callback: CorsCallback // Sử dụng kiểu đã định nghĩa
+//   ) {
+//     if (!origin) return callback(null, true);
+//     if (allowedOrigins.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+// };
+
+// app.use(cors(corsOptions));
+
+// app.use("/api/auth", authRoutes);
+// app.use("/api/todos", todoRoutes);
+
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = [
-  "https://yatodos-web.vercel.app/",
-  "http://localhost:3000",
-  "https://yatodo.netlify.app/",
-];
-type CorsCallback = (err: Error | null, allow?: boolean) => void;
-
-const corsOptions: CorsOptions = {
-  origin: function (
-    origin: string | undefined, // Thêm kiểu cho origin
-    callback: CorsCallback // Sử dụng kiểu đã định nghĩa
-  ) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
-
-app.use(cors(corsOptions));
+// SỬA Ở ĐÂY: Dùng cors() không có tham số
+app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/todos", todoRoutes);
