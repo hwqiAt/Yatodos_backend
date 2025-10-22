@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
-  "https://yatodos-web-git-main-hwqiats-projects.vercel.app",
+  "https://yatodos-web.vercel.app/",
   "http://localhost:3000",
 ];
 type CorsCallback = (err: Error | null, allow?: boolean) => void;
