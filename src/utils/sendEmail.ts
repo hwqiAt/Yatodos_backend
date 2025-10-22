@@ -1,41 +1,34 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 interface EmailOptions {
-  to: string; // Email người nhận
-  subject: string; // Tiêu đề email
-  text: string; // Nội dung dạng văn bản thuần (plain text)
-  html: string; // Nội dung dạng HTML
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
 }
 
 export async function sendEmail(options: EmailOptions) {
-  // 1. Tạo "transporter" (dịch vụ vận chuyển email)
-  // Chúng ta dùng Gmail (SMTP)
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: parseInt(process.env.EMAIL_PORT || "587"),
-    secure: false, // `secure: false` vì chúng ta dùng port 587 (TLS)
-    auth: {
-      user: process.env.EMAIL_USER, // Email Gmail của bạn
-      pass: process.env.EMAIL_PASSWORD, // Mật khẩu ứng dụng 16 chữ số
-    },
-  });
-
-  // 2. Định nghĩa nội dung email
-  const mailOptions = {
-    from: `"My Todo App" <${process.env.EMAIL_USER}>`, // Tên người gửi
-    to: options.to,
-    subject: options.subject,
-    text: options.text,
-    html: options.html,
-  };
-
-  // 3. Gửi email
   try {
-    await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully!");
+    const { data, error } = await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: options.to,
+      subject: options.subject,
+      html: options.html,
+    });
+
+    if (error) {
+      console.error("Resend error:", error);
+      throw new Error(`Email could not be sent: ${error.message}`);
+    }
+
+    console.log("Email sent successfully via Resend!", data);
   } catch (error) {
     console.error("Error sending email:", error);
-    // Ném lỗi ra ngoài để controller có thể bắt được
-    throw new Error("Email could not be sent");
+    throw error;
   }
 }
