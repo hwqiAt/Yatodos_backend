@@ -13,6 +13,7 @@ app.use(express.json());
 const allowedOrigins = [
   "https://yatodos-web.vercel.app/",
   "http://localhost:3000",
+  "https://yatodo.netlify.app/",
 ];
 type CorsCallback = (err: Error | null, allow?: boolean) => void;
 
