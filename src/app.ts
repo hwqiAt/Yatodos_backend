@@ -1,22 +1,21 @@
 import express from "express";
 import cors from "cors";
-import morgan from "morgan";
-import helmet from "helmet";
-import todosRouter from "./routes/todos";
-import authRouter from "./routes/auth";
+import dotenv from "dotenv";
+import authRoutes from "./routes/auth";
+import todoRoutes from "./routes/todos";
+
+dotenv.config();
 
 const app = express();
 
-app.use(helmet());
-app.use(cors({ origin: true }));
-app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/api/todos", todosRouter);
-app.use("/api/auth", authRouter);
+const corsOptions = {
+  origin: "https://yatodos-web-git-main-hwqiats-projects.vercel.app",
+};
+app.use(cors(corsOptions));
 
-app.get("/api/health", (req, res) =>
-  res.json({ _t: "Ok", data: { status: "ok" } })
-);
+app.use("/api/auth", authRoutes);
+app.use("/api/todos", todoRoutes);
 
 export default app;
