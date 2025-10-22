@@ -2,6 +2,7 @@
 import { Router } from "express";
 import * as ctrl from "../controllers/authController";
 const router = Router();
+console.log("Auth routes loaded");
 
 // Route cũ của bạn
 router.post("/signup", ctrl.signup);
